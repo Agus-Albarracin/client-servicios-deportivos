@@ -1,26 +1,39 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source ".";
+@source "../features";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-background: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-foreground: #202b38;
+  --color-muted: #526171;
+  --color-line: #cbd2da;
+  --color-accent: #175b91;
+  --color-accent-strong: #10436c;
+  --color-accent-soft: #edf4fa;
+  --color-danger: #b42318;
+  --font-sans: Arial, Helvetica, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+button:not(:disabled),
+summary,
+select {
+  cursor: pointer;
+}
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+input,
+select {
+  color-scheme: light;
+}
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
 }
