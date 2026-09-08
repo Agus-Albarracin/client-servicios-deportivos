@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "name": "optimise-seo",
+  "version": "2.0.0",
+  "status": "native",
+  "maintainer": "skillstack",
+  "createdAt": "2026-09-04",
+  "updatedAt": "2026-09-04",
+  "abstract": "Native Skillstack guidance for technical SEO foundations in Next.js App Router applications.",
+  "sources": []
+}

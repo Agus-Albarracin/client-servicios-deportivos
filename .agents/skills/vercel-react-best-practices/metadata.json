@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "name": "vercel-react-best-practices",
+  "version": "1.0.0",
+  "status": "migrating",
+  "maintainer": "skillstack",
+  "createdAt": "2026-09-04",
+  "updatedAt": "2026-09-04",
+  "abstract": "Performance guidance for React and Next.js applications.",
+  "sources": [
+    {
+      "repository": "https://github.com/vercel-labs/agent-skills",
+      "revision": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "reviewedAt": "2026-09-04"
+    }
+  ]
+}

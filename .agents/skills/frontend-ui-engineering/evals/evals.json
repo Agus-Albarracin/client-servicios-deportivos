@@ -1,0 +1,33 @@
+{
+  "skill_name": "frontend-ui-engineering",
+  "evals": [
+    {
+      "id": "existing-system-first",
+      "prompt": "Build a billing settings panel in an application that already has Button, Card, and form tokens.",
+      "expected_output": "A plan or implementation that inspects and reuses the existing system before adding visual primitives.",
+      "assertions": [
+        "The response does not invent an unrelated palette or component set.",
+        "The response identifies the primary billing task and its states."
+      ]
+    },
+    {
+      "id": "accessible-destructive-dialog",
+      "prompt": "Add a confirmation dialog for permanently deleting a workspace.",
+      "expected_output": "An accessible destructive-action interaction with explicit focus, keyboard, and recovery considerations.",
+      "assertions": [
+        "The trigger uses a native button.",
+        "Focus moves into the dialog and returns appropriately on close.",
+        "The destructive action has clear pending and error feedback."
+      ]
+    },
+    {
+      "id": "responsive-dense-data",
+      "prompt": "Create a responsive orders view with status, customer, amount, date, and actions.",
+      "expected_output": "A layout decision that protects task hierarchy and defines intentional narrow-screen behavior.",
+      "assertions": [
+        "The response does not merely compress a desktop table.",
+        "The response identifies how essential data remains reachable on narrow screens."
+      ]
+    }
+  ]
+}

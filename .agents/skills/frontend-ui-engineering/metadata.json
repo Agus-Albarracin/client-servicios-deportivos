@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "name": "frontend-ui-engineering",
+  "version": "2.1.0",
+  "status": "native",
+  "maintainer": "skillstack",
+  "createdAt": "2026-09-04",
+  "updatedAt": "2026-09-04",
+  "abstract": "Native Skillstack guidance for deliberate, accessible, responsive, production-quality frontend UI engineering.",
+  "sources": []
+}
