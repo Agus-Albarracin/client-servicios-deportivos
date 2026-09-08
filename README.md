@@ -10,7 +10,7 @@ Interfaz Next.js para solicitar turnos por WhatsApp. Implementa el recorrido:
 6. Preparar el resumen, verificarlo y abrir WhatsApp.
 
 La reserva queda pendiente de confirmación por la sede. La aplicación no envía
-mensajes automáticamente ni bloquea turnos.
+mensajes automáticamente ni bloquea turnos al seleccionar: la reserva la confirma el administrador desde el backoffice. Los reservados se muestran en ámbar y no se pueden elegir.
 
 ## Desarrollo
 
