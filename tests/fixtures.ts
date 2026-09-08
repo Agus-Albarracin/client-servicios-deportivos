@@ -40,7 +40,9 @@ export async function mockApi(page: Page) {
     patches: [] as Record<string, string>[],
     creates: 0,
     previews: 0,
+    calendarEnabled: false,
     unavailable: false,
+    reserved: false,
     failContact: false,
     failSports: false,
     emptySports: false,
@@ -68,6 +70,8 @@ export async function mockApi(page: Page) {
           "Access-Control-Allow-Headers": "Content-Type",
         },
       });
+    if (path === '/scheduling/settings') return reply({ calendarEnabled: state.calendarEnabled });
+    if (path === '/scheduling/month') return reply([{ date, availableCount: state.unavailable || state.reserved ? 0 : 1, reservedCount: state.reserved ? 1 : 0, blocked: state.unavailable }]);
     if (path === "/sports")
       return state.failSports
         ? reply({ message: "Unavailable" }, 503)
@@ -85,7 +89,8 @@ export async function mockApi(page: Page) {
         ...venue,
         mapUrl: "https://www.google.com/maps/search/?api=1&query=-34.6,-58.4",
       });
-    if (path === "/slots")
+    if (path === "/scheduling/day" && state.reserved) return reply(url.searchParams.get("date") === date ? [{ ...slot, status: "RESERVED" }] : []);
+    if (path === "/slots" || path === "/scheduling/day")
       return reply(
         url.searchParams.get("date") === date && !state.unavailable
           ? [

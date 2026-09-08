@@ -1,0 +1,30 @@
+import { expect, test } from '@playwright/test';
+import { date, mockApi, toAvailability } from './fixtures';
+test('shows reserved slots without selection in both views and refreshes an occupied selection', async ({ page }) => {
+  const state = await mockApi(page);
+  await toAvailability(page);
+  await page.getByRole('radio', { name: '18:00 – 19:00' }).check();
+  state.reserved = true;
+  await page.getByRole('button', { name: 'Actualizar horarios' }).click();
+  const reserved = page.getByRole('region', { name: 'Horarios reservados' });
+  await expect(reserved).toContainText('18:00 – 19:00');
+  await expect(reserved).toContainText('Reservado');
+  await expect(page.getByRole('radio', { name: '18:00 – 19:00' })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Revisar solicitud' })).toBeDisabled();
+  await page.getByRole('button', { name: 'Calendario', exact: true }).click();
+  await page.getByLabel('Mes del calendario').fill(date.slice(0,7));
+  const day = page.locator('.rdp-day_button').filter({ hasText: /^1$/ });
+  await expect(day).toBeEnabled();
+  await day.click();
+  await expect(reserved).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Revisar solicitud' })).toBeDisabled();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.screenshot({ path: test.info().outputPath('reserved-calendar.png'), fullPage: true });
+});
+test('renders the redesigned entry screen without overflow', async ({ page }) => {
+  await mockApi(page); await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Tu próximo partido empieza acá.' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: 'Fútbol' })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.screenshot({ path: test.info().outputPath('booking-home.png'), fullPage: true });
+});

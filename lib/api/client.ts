@@ -1,4 +1,6 @@
 import type {
+  CalendarSettings,
+  CalendarDay,
   BookingDraft,
   DraftInput,
   Slot,
@@ -93,6 +95,9 @@ export function createBookingApi(baseUrl: string) {
   }
 
   return {
+    calendarSettings: (signal?: AbortSignal) => request<CalendarSettings>("/scheduling/settings", { signal }),
+    calendarMonth: (venueId: string, sportId: string, month: string, signal?: AbortSignal) => request<CalendarDay[]>(
+      '/scheduling/month?' + new URLSearchParams({ venueId, sportId, month }), { signal }),
     sports: (signal?: AbortSignal) => request<Sport[]>("/sports", { signal }),
     zones: (signal?: AbortSignal) => request<Zone[]>("/zones", { signal }),
     venues: (zoneId: string, sportId: string, signal?: AbortSignal) =>
@@ -108,7 +113,7 @@ export function createBookingApi(baseUrl: string) {
       signal?: AbortSignal,
     ) =>
       request<Slot[]>(
-        `/slots?${new URLSearchParams({ venueId, sportId, date })}`,
+        `/scheduling/day?${new URLSearchParams({ venueId, sportId, date })}`,
         { signal },
       ),
     create: (sportId: string) =>
