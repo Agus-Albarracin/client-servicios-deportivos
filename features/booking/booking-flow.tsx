@@ -111,9 +111,9 @@ export function BookingFlow() {
     setStep(target);
   }
   return (
-    <div className="grid gap-6 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10">
-      <nav aria-label="Pasos de la solicitud">
-        <ol className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-1">
+    <div className="booking-layout">
+      <nav aria-label="Pasos de la solicitud" className="booking-navigation"><p className="booking-nav-title">ARMÁ TU PRÓXIMO PARTIDO</p>
+        <ol className="booking-progress">
           {steps.map((label, index) => (
             <li key={label}>
               <button
@@ -121,25 +121,25 @@ export function BookingFlow() {
                 aria-current={step === index ? "step" : undefined}
                 disabled={index >= step || pending}
                 onClick={() => backTo(index)}
-                className={`flex min-h-12 w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm disabled:cursor-default ${index === step ? "bg-accent-soft font-semibold text-accent-strong" : index < step ? "text-foreground underline-offset-4 hover:underline" : "text-muted"}`}
+                className={index < step ? "completed-step" : undefined}
               >
                 <span
                   aria-hidden="true"
                   className="flex size-6 shrink-0 items-center justify-center rounded-full border border-current text-xs"
                 >
-                  {index + 1}
+                  {index < step ? "✓" : index + 1}
                 </span>
                 {label}
               </button>
             </li>
           ))}
-        </ol>
+        </ol><div className="booking-help"><strong>¿Cuándo queda reservado?</strong><p>Al elegir un horario creás una solicitud. La sede revisa tus datos y confirma el turno. Vas a poder coordinar por WhatsApp.</p></div>
       </nav>
       <section
         aria-labelledby="step-title"
-        className="min-w-0 rounded-xl border border-line bg-surface p-5 sm:p-8"
+        className="booking-panel"
       >
-        <p className="mb-2 text-sm text-muted">
+        <p className="step-progress"><progress aria-label="Progreso de la solicitud" max={steps.length} value={step + 1} />
           Paso {step + 1} de {steps.length}
         </p>
         <h2

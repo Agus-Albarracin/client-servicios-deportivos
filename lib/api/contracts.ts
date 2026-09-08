@@ -1,3 +1,6 @@
+export interface CalendarSettings { calendarEnabled: boolean }
+export interface CalendarDay { date: string; availableCount: number; reservedCount?: number; blocked: boolean }
+
 export interface Sport {
   id: string;
   name: string;
@@ -32,7 +35,7 @@ export interface Slot {
   sportId: string;
   startsAt: string;
   endsAt: string;
-  status: "AVAILABLE" | "UNAVAILABLE";
+  status: "AVAILABLE" | "UNAVAILABLE" | "RESERVED";
 }
 
 export interface Contact {
@@ -41,6 +44,10 @@ export interface Contact {
   renterPhone: string;
 }
 export interface BookingDraft extends Partial<Contact> {
+  status?: "PENDING_CONFIRMATION" | "CONFIRMED";
+  confirmedAt?: string;
+  startsAt?: string;
+  endsAt?: string;
   id: string;
   sportId: string;
   zoneId?: string;
@@ -48,7 +55,7 @@ export interface BookingDraft extends Partial<Contact> {
   date?: string;
   slotId?: string;
 }
-export type DraftInput = Partial<Omit<BookingDraft, "id">>;
+export type DraftInput = Partial<Omit<BookingDraft, "id" | "status" | "confirmedAt" | "startsAt" | "endsAt">>;
 
 export interface WhatsAppPreview {
   status: "PENDING_CONFIRMATION";

@@ -15,3 +15,5 @@ los campos ausentes pueden haber sido invalidados por el servidor.
 
 Pruebas de transporte: `npm test -- tests/api.spec.ts --project=desktop`.
 No contactan servicios externos ni requieren base de datos.
+
+Calendario: calendarSettings() consulta la preferencia global y calendarMonth() los días disponibles. Son lecturas públicas sin credenciales ni caché. Se mantiene slots() y el contrato de borrador; los cierres se validan en NestJS.

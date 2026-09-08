@@ -74,7 +74,7 @@ export function Choice({
 }) {
   return (
     <label
-      className={`flex min-h-16 cursor-pointer items-center gap-3 rounded-lg border p-4 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent ${checked ? "border-accent bg-accent-soft" : "border-line bg-surface hover:border-accent"}`}
+      className={`booking-choice flex min-h-16 cursor-pointer items-center gap-3 rounded-lg border p-4 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent ${checked ? "border-accent bg-accent-soft" : "border-line bg-surface hover:border-accent"}`}
     >
       <input
         type="radio"
