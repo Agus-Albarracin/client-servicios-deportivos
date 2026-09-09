@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "name": "frontend-design",
+  "version": "1.0.0",
+  "status": "migrating",
+  "maintainer": "skillstack",
+  "createdAt": "2026-09-05",
+  "updatedAt": "2026-09-05",
+  "abstract": "Vendorized Anthropic guidance for distinctive, intentional frontend visual design.",
+  "sources": [
+    {
+      "repository": "https://github.com/anthropics/skills",
+      "revision": "41bbe19d1a1a7eaab5e7bb9050a417e5c6cffc8f",
+      "reviewedAt": "2026-09-05"
+    }
+  ]
+}
