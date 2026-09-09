@@ -1,11 +1,12 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { BookingFlow } from "@/features/booking/booking-flow";
 
 export default function Home() {
   return <>
     <a href="#solicitud" className="sr-only fixed top-3 left-3 z-10 rounded-lg bg-surface p-3 focus:not-sr-only">Ir a la solicitud</a>
     <header className="site-header"><div className="site-width header-content">
-      <Link href="/" className="public-brand" aria-label="Turnero de polideportivos, inicio"><span aria-hidden="true">t.</span>turnero<span className="brand-caption">TU PRÓXIMO PARTIDO</span></Link>
+      <Link href="/" className="public-brand" aria-label="Turnero de polideportivos, inicio"><Image className="public-brand-icon" src="/turnerop-client-icon.svg" width={40} height={40} alt="" />turnero<span className="brand-caption">TU PRÓXIMO PARTIDO</span></Link>
       <a className="how-link" href="#como-funciona">Cómo funciona <span aria-hidden="true">↗</span></a>
     </div></header>
     <main className="site-width public-main">

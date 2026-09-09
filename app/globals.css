@@ -55,7 +55,7 @@ select {
 .site-header { border-bottom:1px solid var(--color-line); background:#fff; }
 .header-content { height:88px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
 .public-brand { display:flex; align-items:center; gap:10px; font-size:27px; font-weight:800; letter-spacing:-1.3px; text-decoration:none; }
-.public-brand > span:first-child { display:grid; place-items:center; width:40px; height:40px; background:#185b46; border-radius:12px; color:#ddf58b; font-size:30px; }
+.public-brand-icon { display:block; flex-shrink:0; width:40px; height:40px; }
 .public-brand .brand-caption { font-size:9px; font-weight:700; letter-spacing:1.6px; margin-left:16px; padding-left:20px; border-left:1px solid var(--color-line); color:var(--color-muted); }
 .how-link { display:flex; align-items:center; gap:15px; font-size:13px; font-weight:600; }
 .public-main { padding-top:30px; }

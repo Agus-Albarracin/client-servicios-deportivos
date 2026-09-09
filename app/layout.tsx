@@ -7,6 +7,7 @@ export const metadata: Metadata = {
     "Elegí tu deporte, encontrá una sede y consultá horarios disponibles. Gestioná tu solicitud por WhatsApp con la sede.",
   // Transactional MVP: revisit indexing when a public landing and domain exist.
   robots: { index: false, follow: false },
+  icons: { icon: { url: "/turnerop-client-icon.svg", type: "image/svg+xml" } },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
