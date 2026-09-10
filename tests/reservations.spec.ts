@@ -10,14 +10,14 @@ test('shows reserved slots without selection in both views and refreshes an occu
   await expect(reserved).toContainText('18:00 – 19:00');
   await expect(reserved).toContainText('Reservado');
   await expect(page.getByRole('radio', { name: '18:00 – 19:00' })).toHaveCount(0);
-  await expect(page.getByRole('button', { name: 'Revisar solicitud' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Continuar con mis datos' })).toBeDisabled();
   await page.getByRole('button', { name: 'Calendario', exact: true }).click();
   await page.getByLabel('Mes del calendario').fill(date.slice(0,7));
   const day = page.locator('.rdp-day_button').filter({ hasText: /^1$/ });
   await expect(day).toBeEnabled();
   await day.click();
   await expect(reserved).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Revisar solicitud' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Continuar con mis datos' })).toBeDisabled();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.screenshot({ path: test.info().outputPath('reserved-calendar.png'), fullPage: true });
 });

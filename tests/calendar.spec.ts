@@ -6,7 +6,6 @@ test('uses the configured calendar, preserves selection across views and disable
   await toVenues(page);
   await page.getByLabel('Zona', { exact: true }).selectOption(zones[0].id);
   await page.getByRole('radio', { name: /Polideportivo de prueba/ }).check();
-  await page.getByRole('button', { name: 'Ver sede', exact: true }).click();
   await page.getByRole('button', { name: 'Ver disponibilidad' }).click();
   await expect(page.getByLabel('Mes del calendario')).toBeVisible();
   await page.getByLabel('Mes del calendario').fill(date.slice(0, 7));
@@ -19,7 +18,7 @@ test('uses the configured calendar, preserves selection across views and disable
   await page.getByRole('button', { name: 'Calendario', exact: true }).click();
   await expect(page.locator('.rdp-day_button').filter({ hasText: /^1$/ })).toBeDisabled();
   await page.getByRole('button', { name: 'Actualizar horarios' }).click();
-  await expect(page.getByRole('button', { name: 'Revisar solicitud' })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Continuar con mis datos' })).toBeDisabled();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.screenshot({ path: test.info().outputPath('calendar.png'), fullPage: true });
 });

@@ -126,7 +126,7 @@ export function AvailabilityStep({
           type="submit"
           disabled={!options.some((slot) => slot.id === slotId)}
         >
-          Revisar solicitud
+          Continuar con mis datos
         </Button>
         <Button
           type="button"

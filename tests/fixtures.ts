@@ -35,6 +35,8 @@ export const slot: Slot = {
 
 // Explicit HTTP fixtures only for tests. Production never falls back to these catalogs.
 export async function mockApi(page: Page) {
+  await page.route("https://www.openstreetmap.org/export/embed.html**", (route) =>
+    route.fulfill({ contentType: "text/html", body: "<p>Mapa de prueba</p>" }));
   const state = {
     draft: null as BookingDraft | null,
     patches: [] as Record<string, string>[],
@@ -139,7 +141,7 @@ export async function mockApi(page: Page) {
       state.patches.push(patch);
       if (state.failContact && patch.renterFirstName)
         return reply({ message: "Unavailable" }, 503);
-      if (state.unavailable && patch.slotId)
+      if (state.unavailable && (patch.slotId || state.draft?.slotId))
         return reply({ message: "El turno no está disponible" }, 400);
       const previous = state.draft!;
       const next = { ...previous, ...patch };
@@ -161,28 +163,30 @@ export async function mockApi(page: Page) {
   return state;
 }
 
-export async function toContact(page: Page) {
+export async function toVenues(page: Page) {
   await page.goto("/");
   await page.getByRole("radio", { name: "Fútbol" }).check();
   await page.getByRole("button", { name: "Continuar", exact: true }).click();
-}
-export async function toVenues(page: Page) {
-  await toContact(page);
-  await page.getByLabel("Nombre", { exact: true }).fill("Ana");
-  await page.getByLabel("Apellido", { exact: true }).fill("Pérez");
-  await page.getByLabel("Teléfono", { exact: true }).fill("+5491123456789");
-  await page.getByRole("button", { name: "Guardar y continuar" }).click();
 }
 export async function toAvailability(page: Page) {
   await toVenues(page);
   await page.getByLabel("Zona", { exact: true }).selectOption(zones[0].id);
   await page.getByRole("radio", { name: /Polideportivo de prueba/ }).check();
-  await page.getByRole("button", { name: "Ver sede", exact: true }).click();
   await page.getByRole("button", { name: "Ver disponibilidad" }).click();
   await page.getByLabel("Fecha", { exact: true }).fill(date);
 }
-export async function toReview(page: Page) {
+export async function toContact(page: Page) {
   await toAvailability(page);
   await page.getByRole("radio", { name: "18:00 – 19:00" }).check();
-  await page.getByRole("button", { name: "Revisar solicitud" }).click();
+  await page.getByRole("button", { name: "Continuar con mis datos" }).click();
+}
+export async function fillContact(page: Page) {
+  await page.getByLabel("Nombre", { exact: true }).fill("Ana");
+  await page.getByLabel("Apellido", { exact: true }).fill("Pérez");
+  await page.getByLabel("Teléfono", { exact: true }).fill("+5491123456789");
+  await page.getByRole("button", { name: "Guardar y continuar" }).click();
+}
+export async function toReview(page: Page) {
+  await toContact(page);
+  await fillContact(page);
 }

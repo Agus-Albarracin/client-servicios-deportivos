@@ -10,24 +10,21 @@ import type {
 import { SportStep } from "./sport-step";
 import { ContactStep } from "./contact-step";
 import { VenueStep } from "./venue-step";
-import { VenueDetailStep } from "./venue-detail-step";
 import { AvailabilityStep } from "./availability-step";
 import { ReviewStep } from "./review-step";
 import { Button } from "./ui";
 const steps = [
   "Deporte",
-  "Tus datos",
   "Zona y sede",
-  "Detalle de sede",
   "Fecha y horario",
+  "Tus datos",
   "Resumen y WhatsApp",
 ];
 const titles = [
   "¿Qué querés jugar?",
-  "¿A nombre de quién?",
   "¿Dónde querés jugar?",
-  "Conocé la sede",
   "Elegí tu turno",
+  "¿A nombre de quién?",
   "Revisá tu solicitud",
 ];
 const emptyContact: Contact = {
@@ -156,11 +153,11 @@ export function BookingFlow() {
             className="mb-5 space-y-3 rounded-lg border border-danger p-4"
           >
             <p>{error}</p>
-            {step === 5 ? (
+            {step >= 3 ? (
               <Button
                 variant="secondary"
                 disabled={pending}
-                onClick={() => backTo(4)}
+                onClick={() => backTo(2)}
               >
                 Volver a elegir horario
               </Button>
@@ -190,33 +187,27 @@ export function BookingFlow() {
               onContinue={(sportId) => save({ sportId }, 1)}
             />
           ) : null}
-          {step === 1 ? (
-            <ContactStep
-              contact={contact}
-              onChange={setContact}
-              onContinue={(input) => save(input, 2)}
+          {step === 1 && draft ? (
+            <VenueStep
+              draft={draft}
+              onContinue={(zoneId, venueId) => save({ zoneId, venueId }, 2)}
             />
           ) : null}
           {step === 2 && draft ? (
-            <VenueStep
-              draft={draft}
-              onContinue={(zoneId, venueId) => save({ zoneId, venueId }, 3)}
-            />
-          ) : null}
-          {step === 3 && draft?.venueId ? (
-            <VenueDetailStep
-              venueId={draft.venueId}
-              onContinue={() => setStep(4)}
-            />
-          ) : null}
-          {step === 4 && draft ? (
             <AvailabilityStep
               draft={draft}
               revision={revision}
-              onContinue={(date, slotId) => save({ date, slotId }, 5)}
+              onContinue={(date, slotId) => save({ date, slotId }, 3)}
             />
           ) : null}
-          {step === 5 ? (
+          {step === 3 ? (
+            <ContactStep
+              contact={contact}
+              onChange={setContact}
+              onContinue={(input) => save(input, 4)}
+            />
+          ) : null}
+          {step === 4 ? (
             <ReviewStep
               preview={preview}
               ready={ready && !pending}

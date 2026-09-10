@@ -1,3 +1,4 @@
+import { VenueMap } from "./venue-map";
 import { useState } from "react";
 import { bookingApi } from "@/lib/api/client";
 import type { BookingDraft } from "@/lib/api/contracts";
@@ -21,6 +22,7 @@ export function VenueStep({
   const options =
     venues.data?.filter((venue) => venue.isActive && venue.zoneId === zoneId) ??
     [];
+  const selectedVenue = options.find((venue) => venue.id === venueId);
   return (
     <form
       onSubmit={(event) => {
@@ -92,6 +94,12 @@ export function VenueStep({
           )}
         </Feedback>
       ) : null}
+      {selectedVenue ? (
+        <div className="space-y-3">
+          <p className="text-muted">{selectedVenue.description}</p>
+          <VenueMap venue={selectedVenue} />
+        </div>
+      ) : null}
       <Button
         type="submit"
         disabled={
@@ -99,7 +107,7 @@ export function VenueStep({
           !zones.data?.some((zone) => zone.id === zoneId)
         }
       >
-        Ver sede
+        Ver disponibilidad
       </Button>
     </form>
   );

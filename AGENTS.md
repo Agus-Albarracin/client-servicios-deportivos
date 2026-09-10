@@ -3,10 +3,10 @@
 Leer primero [el contexto raíz](../AGENTS.md) y [el contrato de integración](../docs/integracion.md). Este archivo agrega instrucciones propias de `client/`.
 
 - Stack instalado: Next.js 16.3.4, React 19, TypeScript y Tailwind CSS 4. Entrada actual: `app/page.tsx`; estructura global: `app/layout.tsx` y `app/globals.css`.
-- El flujo público de seis pasos está implementado, con vistas de lista y calendario y horarios reservados no seleccionables.
+- El flujo público de cinco pasos está implementado, con vistas de lista y calendario y horarios reservados no seleccionables.
 - Mantener las pantallas separadas del transporte HTTP. Al crear módulos, agrupar el flujo en `features/booking/` y centralizar transporte y contratos en `lib/api/`; estas carpetas contienen la implementación actual.
 - Consumir contratos públicos del backend; no importar código NestJS, repositorios ni credenciales de gestión.
-- Implementar los seis pasos, navegación hacia atrás, formularios accesibles, diseño adaptable y estados de carga, vacío, error y guardado.
+- Mantener los cinco pasos (Deporte → Zona y sede con mapa integrado → Fecha y horario → Tus datos → Resumen y WhatsApp), navegación hacia atrás, formularios accesibles, diseño adaptable y estados de carga, vacío, error y guardado.
 - Tras un PATCH, reemplazar el borrador persistido con la respuesta completa. No preservar IDs que el backend haya invalidado.
 - No cachear borradores ni enlaces de WhatsApp; no exponer IDs secretos en logs o analítica.
 - Antes de escribir código Next.js, leer las guías locales pertinentes indicadas en el bloque siguiente.

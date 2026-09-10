@@ -50,14 +50,6 @@ export function ReviewStep({
           </div>
         ))}
       </dl>
-      <details className="rounded-lg border border-line p-4">
-        <summary className="cursor-pointer font-medium">
-          Ver mensaje completo
-        </summary>
-        <p className="mt-4 whitespace-pre-wrap text-sm wrap-break-word">
-          {preview.message}
-        </p>
-      </details>
       {ready && url ? (
         <div className="space-y-3">
           <a
@@ -67,11 +59,11 @@ export function ReviewStep({
             rel="noopener noreferrer"
             referrerPolicy="no-referrer"
           >
-            Gestionar por WhatsApp
+            Abonar la reserva
           </a>
           <p className="text-sm text-muted">
-            Se abre en otra pestaña. Enviá el mensaje desde WhatsApp; abrirlo no
-            confirma tu reserva.
+            Coordiná el pago con la sede por WhatsApp. Abrir el enlace no
+            realiza un cobro ni confirma tu reserva.
           </p>
         </div>
       ) : (

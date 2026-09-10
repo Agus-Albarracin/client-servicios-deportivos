@@ -3,11 +3,14 @@
 Interfaz Next.js para solicitar turnos por WhatsApp. Implementa el recorrido:
 
 1. Elegir deporte activo.
-2. Completar nombre, apellido y teléfono internacional.
-3. Elegir zona y sede compatible.
-4. Revisar la ficha, dirección y enlace a Google Maps.
-5. Consultar fecha y elegir un horario disponible.
-6. Preparar el resumen, verificarlo y abrir WhatsApp.
+2. Elegir zona y sede compatible; ver su descripción, dirección y mapa integrado de OpenStreetMap.
+3. Consultar fecha y elegir un horario disponible.
+4. Completar nombre, apellido y teléfono internacional.
+5. Preparar el resumen y abrir WhatsApp con «Abonar la reserva» para coordinar el pago con la sede.
+
+El mapa usa las coordenadas públicas de la sede y requiere conexión con OpenStreetMap.
+La dirección permanece visible y se puede continuar si el mapa no carga. El botón
+final conserva el enlace de WhatsApp: no procesa pagos ni confirma la reserva.
 
 La reserva queda pendiente de confirmación por la sede. La aplicación no envía
 mensajes automáticamente ni bloquea turnos al seleccionar: la reserva la confirma el administrador desde el backoffice. Los reservados se muestran en ámbar y no se pueden elegir.
