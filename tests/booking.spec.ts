@@ -202,13 +202,13 @@ test("shows the venue map inline before requesting contact and clears it on zone
   const map = page.getByTitle("Mapa de Polideportivo de prueba", { exact: true });
   await expect(map).toBeVisible();
   const url = new URL((await map.getAttribute("src"))!);
-  expect(url.origin).toBe("https://www.openstreetmap.org");
-  expect(url.searchParams.get("marker")).toBe("-34.6,-58.4");
+  expect(url.origin).toBe("https://maps.google.com");
+  expect(url.searchParams.get("q")).toBe("-34.6,-58.4");
   await expect(page.getByRole("link", { name: /Google Maps/ })).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.screenshot({ path: test.info().outputPath("venue-map.png"), fullPage: true });
   await page.getByLabel("Zona", { exact: true }).selectOption(zones[1].id);
-  await expect(map).toHaveCount(0);
+  await expect(map).toBeHidden();
   await expect(page.getByRole("button", { name: "Ver disponibilidad" })).toBeDisabled();
 });
 
@@ -228,4 +228,30 @@ test("recovers an occupied slot while saving the final contact step without losi
   await expect(page.getByLabel("Teléfono", { exact: true })).toHaveValue("+5491123456789");
   await page.getByRole("button", { name: "Guardar y continuar" }).click();
   await expect(page.getByRole("button", { name: "Preparar resumen", exact: true })).toBeVisible();
+});
+
+test("reuses the Google iframe after switching zones and returning from availability", async ({ page }) => {
+  let mapLoads = 0;
+  await mockApi(page);
+  await page.route("https://maps.google.com/maps?**", (route) => {
+    mapLoads++;
+    return route.fulfill({ contentType: "text/html", body: "<p>Google map fixture</p>" });
+  });
+  await toVenues(page);
+  await page.getByLabel("Zona", { exact: true }).selectOption(zones[0].id);
+  await page.getByRole("radio", { name: /Polideportivo de prueba/ }).check();
+  const map = page.getByTitle("Mapa de Polideportivo de prueba", { exact: true });
+  await map.scrollIntoViewIfNeeded();
+  await expect.poll(() => mapLoads).toBe(1);
+  const original = await map.elementHandle();
+  await page.getByLabel("Zona", { exact: true }).selectOption(zones[1].id);
+  await expect(map).toBeHidden();
+  await page.getByLabel("Zona", { exact: true }).selectOption(zones[0].id);
+  await page.getByRole("radio", { name: /Polideportivo de prueba/ }).check();
+  await expect(map).toBeVisible();
+  await page.getByRole("button", { name: "Ver disponibilidad" }).click();
+  await page.getByRole("button", { name: "Volver", exact: true }).click();
+  await expect(map).toBeVisible();
+  expect(await map.evaluate((node, previous) => node === previous, original)).toBe(true);
+  expect(mapLoads).toBe(1);
 });

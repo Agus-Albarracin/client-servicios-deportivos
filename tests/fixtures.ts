@@ -35,7 +35,7 @@ export const slot: Slot = {
 
 // Explicit HTTP fixtures only for tests. Production never falls back to these catalogs.
 export async function mockApi(page: Page) {
-  await page.route("https://www.openstreetmap.org/export/embed.html**", (route) =>
+  await page.route("https://maps.google.com/maps?**", (route) =>
     route.fulfill({ contentType: "text/html", body: "<p>Mapa de prueba</p>" }));
   const state = {
     draft: null as BookingDraft | null,

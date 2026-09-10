@@ -97,9 +97,9 @@ export function VenueStep({
       {selectedVenue ? (
         <div className="space-y-3">
           <p className="text-muted">{selectedVenue.description}</p>
-          <VenueMap venue={selectedVenue} />
         </div>
       ) : null}
+      <VenueMap venue={selectedVenue} />
       <Button
         type="submit"
         disabled={

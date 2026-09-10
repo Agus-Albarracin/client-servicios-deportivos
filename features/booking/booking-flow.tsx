@@ -187,11 +187,14 @@ export function BookingFlow() {
               onContinue={(sportId) => save({ sportId }, 1)}
             />
           ) : null}
-          {step === 1 && draft ? (
+          {draft ? (
+            <div hidden={step !== 1}>
             <VenueStep
+              key={`${draft.id}:${draft.sportId}`}
               draft={draft}
               onContinue={(zoneId, venueId) => save({ zoneId, venueId }, 2)}
             />
+            </div>
           ) : null}
           {step === 2 && draft ? (
             <AvailabilityStep
